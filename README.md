@@ -2,11 +2,11 @@
 ## Team 9
 
 ### Authors:
-- Emma Wrightson
-- Xinshuang Liu
-- Haoyu Hu
-- Mazeyu Ji
-- Qi Cao
+- Wrightson, Emma
+- Liu, Xinshuang 
+- Hu, Haoyu 
+- Ji, Mazeyu
+- CAO, QI
 
 ## Project Description:
 Our project studies the tree loss across the world per country and region as well as the gross emissions of CO2 and the main causes of tree loss, from 2001 to 2020. In our project, we predict how future tree loss will look in the future, whether it will improve or grow worse, as well as its relation to CO2 emissions. 
@@ -23,6 +23,7 @@ In order to predict and visualize our data, we incorporated several third party 
 - math
 - warnings
 - sklearn
+- seaborn
 
 
 # `README.md` Requirements
