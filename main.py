@@ -42,7 +42,7 @@ eval_gp_models()
 print('-'*10)
 
 ############################################################################
-# Section 2: Test the models
+# Section 2: Predict the tree loss and co2 emissions
 ############################################################################
 
 predict_all_values_using_gp_models()
