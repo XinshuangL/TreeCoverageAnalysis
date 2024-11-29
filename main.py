@@ -9,6 +9,7 @@
 ############################################################################
 from prediction_baselines_statistical_methods \
     import test_baseline1, test_baseline2, test_baseline3, test_baseline4
+from Gaussian_process_regression import eval_gp_models, predict_all_values_using_gp_models
 
 ############################################################################
 # Section 1: Test the models
@@ -34,3 +35,14 @@ print('-'*10)
 print('test baseline 4')
 test_baseline4()
 print('-'*10)
+
+# Section 1.2: Evaluate gp models
+print('Evaluate gp models')
+eval_gp_models()
+print('-'*10)
+
+############################################################################
+# Section 2: Test the models
+############################################################################
+
+predict_all_values_using_gp_models()
