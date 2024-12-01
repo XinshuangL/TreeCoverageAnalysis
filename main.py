@@ -1,7 +1,7 @@
 ############################################################################
 # This is the main file for running the modular .py files.
-# Author: Xinshuang Liu, Haoyu Hu, Emma, Wrightson
-# Email: xil235@ucsd.edu, hah034@ucsd.edu, ewrightson@ucsd.edu
+# Author: Xinshuang Liu, Haoyu Hu, Emma, Wrightson, Cao, Qi
+# Email: xil235@ucsd.edu, hah034@ucsd.edu, ewrightson@ucsd.edu, q9cao@ucsd.edu
 ############################################################################
 
 ############################################################################
@@ -10,6 +10,7 @@
 from prediction_baselines_statistical_methods \
     import test_baseline1, test_baseline2, test_baseline3, test_baseline4
 from Gaussian_process_regression import eval_gp_models, predict_all_values_using_gp_models
+import correlation_analysis
 
 ############################################################################
 # Section 1: Test the models
@@ -46,3 +47,17 @@ print('-'*10)
 ############################################################################
 
 predict_all_values_using_gp_models()
+
+############################################################################
+# Section 3: Correlation analysis between the tree loss and co2 emissions
+############################################################################
+
+# Section 3.1: Correlation coefficient computing
+print('Correlation coefficient computing')
+correlation_analysis.correlation_coefficient_computing()
+
+# Section 3.2: Perform the OLS regression analysis
+print('Perform the OLS regression analysis')
+correlation_analysis.OLS_function_for_correlation_analysis()
+
+
