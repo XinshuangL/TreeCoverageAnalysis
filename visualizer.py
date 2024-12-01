@@ -52,6 +52,9 @@ class TreeLossVisualizer:
             labels={data_column: data_column.replace("_", " ").title()},
             hover_name="region"
         )
+
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
+
         self.generate_figure(fig, output_mode, file_name)
 
     def map_region(self, data_column, title, color_scale, output_mode='show', file_name=None):
@@ -76,6 +79,9 @@ class TreeLossVisualizer:
             color_continuous_scale=color_scale,
             labels={f"{data_column}_total": data_column.replace("_", " ").title()}
         )
+
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
+
         self.generate_figure(fig, output_mode, file_name)
 
     def top_countries(self, data_column, title, output_mode='show', file_name=None):
@@ -102,9 +108,13 @@ class TreeLossVisualizer:
         fig.update_layout(
             xaxis_title=data_column.replace("_", " ").title(),
             yaxis_title="Country Code",
+            xaxis=dict(range = [0, 1.01*(top_10_countries_per_year[data_column].max())]),
             yaxis=dict(categoryorder="total ascending"),
-            showlegend=True
+            showlegend=True       
         )
+
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000  
+
         self.generate_figure(fig, output_mode, file_name)
 
     def top_regions(self, data_column, title, output_mode='show', file_name=None):
@@ -127,9 +137,14 @@ class TreeLossVisualizer:
         fig.update_layout(
             xaxis_title=data_column.replace("_", " ").title(),
             yaxis_title="Sub-Region",
+            xaxis=dict(range = [0, 1.01*(subregion_year_loss[data_column].max())]),
             yaxis=dict(categoryorder="total ascending"),
+            margin={'t':50, 'b':50},
             showlegend=False
         )
+
+        fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000  
+
         self.generate_figure(fig, output_mode, file_name)
 
     def country_trend(self, country_code, data_column, title, line_color, output_mode='show', file_name=None):
