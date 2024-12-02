@@ -14,6 +14,8 @@ from dataset import TreeCoverLossDataset, DriverTypeDataset
 import numpy as np
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel
+from sklearn.gaussian_process.kernels import RBF, Matern, WhiteKernel, ConstantKernel as C
+
 import math
 import torch
 import warnings
@@ -36,15 +38,25 @@ def gp_prediction(x_train, y_train, x_test):
     y_train = np.array(y_train).reshape(-1, 1)
     x_test = np.array(x_test).reshape(-1, 1)
 
+    latest = y_train[-1][0]
+    y_train = y_train - latest
+
     # Define kernel and initialize Gaussian Process Regressor
-    kernel = DotProduct() + WhiteKernel()
-    gpr = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=10)
+    # kernel = DotProduct() + WhiteKernel()
+    kernel = C(1.0, (1e-2, 1e3)) * (RBF(length_scale=1.0, length_scale_bounds=(1e-2, 1e2)) + 
+            Matern(length_scale=1.0, length_scale_bounds=(1e-2, 1e2), nu=1.5)) + \
+            DotProduct(sigma_0=1.0, sigma_0_bounds=(1e-3, 1e3)) + \
+            WhiteKernel(noise_level=1.0, noise_level_bounds=(1e-5, 1e1))
+
+    gpr = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=20, alpha=1e-5)
 
     # Fit the model
     gpr.fit(x_train, y_train)
 
     # Predict with uncertainty
     y_pred, y_std = gpr.predict(x_test, return_std=True)
+    y_pred = y_pred + latest
+    y_pred = np.abs(y_pred)
     return y_pred, y_std
 
 
