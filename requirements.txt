@@ -1,0 +1,10 @@
+plotly==5.15.0
+pandas==1.5.3
+matplotlib==3.7.2
+numpy==1.24.4
+torch==2.0.1
+jsonschema==4.19.0
+mathlib==0.1.2  # Alternative library as Python's `math` is built-in and doesn't require installation.
+warnings==0.1.0  # Hypothetical package as `warnings` is a Python built-in module.
+scikit-learn==1.2.2
+seaborn==0.12.2

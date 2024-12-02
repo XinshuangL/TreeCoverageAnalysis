@@ -25,6 +25,12 @@ class TreeCoverLossDataset(torch.utils.data.Dataset):
     """
 
     def __init__(self, csv_path, split_train_test=False, year_threshold=2010):
+        assert (
+            isinstance(csv_path, str)
+            and isinstance(split_train_test, bool)
+            and isinstance(year_threshold, int)
+        )
+
         # Initialize dataset attributes
         self.data = {}
 
@@ -93,6 +99,8 @@ class TreeCoverLossDataset(torch.utils.data.Dataset):
             tuple: (data, country_code) if split_train_test=False.
                    (train_data, test_data, country_code) if split_train_test=True.
         """
+        assert isinstance(idx, int)
+
         if not self.split_train_test:
             return self.data[self.country_list[idx]], self.country_list[idx]
         else:
@@ -121,6 +129,12 @@ class DriverTypeDataset(torch.utils.data.Dataset):
     """
 
     def __init__(self, csv_path, split_train_test=False, year_threshold=2010):
+        assert (
+            isinstance(csv_path, str)
+            and isinstance(split_train_test, bool)
+            and isinstance(year_threshold, int)
+        )
+
         # Initialize dataset attributes
         self.data = {}
 
@@ -189,6 +203,8 @@ class DriverTypeDataset(torch.utils.data.Dataset):
             tuple: (data, driver_type) if split_train_test=False.
                    (train_data, test_data, driver_type) if split_train_test=True.
         """
+        assert isinstance(index, int)
+
         if not self.split_train_test:
             return self.data[self.driver_list[index]], self.driver_list[index]
         else:
