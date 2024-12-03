@@ -20,6 +20,9 @@ import math
 import torch
 import warnings
 
+import json
+import matplotlib.pyplot as plt
+
 # Suppress warnings for cleaner output
 warnings.filterwarnings("ignore")
 
@@ -207,6 +210,31 @@ def predict_all_values_using_gp_models():
     )
     results = predict_with_gp_models(dataset)
     save_results(results, "output_data/prediction_ByRegion.csv")
+
+    i_example = 0
+    best_ratio = 0
+    for i in range(len(list(results.keys()))):
+        example = results[list(results.keys())[0]]["TreeCoverLoss_ha"]
+        mean_example = example["mean"]
+        std_example = example["std"]
+        ratio = (mean_example.max() - mean_example.min()) / std_example.max()
+        if ratio > best_ratio:
+            best_ratio = ratio
+            i_example = i
+
+    example = results[list(results.keys())[i_example]]["TreeCoverLoss_ha"]
+    mean_example = example["mean"]
+    std_example = example["std"]
+    years = list(range(2020, 2031))
+
+    plt.errorbar(years, mean_example, yerr=std_example*0.1, fmt='o', ecolor='gray')
+    plt.plot(years, mean_example, linestyle='-', color='blue')
+    plt.title('Uncertainty-aware Tree Cover Loss Prediction', fontsize=15)
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Predicted Tree Cover Loss', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.savefig("output_data/tree_cover_loss_prediction_example.png")
+    plt.close()
 
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020 _InPrimaryForest.csv", split_train_test=True
