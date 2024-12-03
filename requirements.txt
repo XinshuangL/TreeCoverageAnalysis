@@ -8,3 +8,4 @@ mathlib==0.1.2  # Alternative library as Python's `math` is built-in and doesn't
 warnings==0.1.0  # Hypothetical package as `warnings` is a Python built-in module.
 scikit-learn==1.2.2
 seaborn==0.12.2
+statsmodels==0.14.4
