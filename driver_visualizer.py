@@ -4,7 +4,7 @@ import plotly.express as px
 def visualize_drivers(file_name):
     """
     This function takes in a .csv file of the dominant drivers of deforestation
-    and then plots them compared to their tree cover loss figures using plotly.
+    and then plots them compared to their tree cover loss and CO2 emission figures using plotly.
     """
 
     assert isinstance(file_name,str)
