@@ -95,6 +95,7 @@ In order to predict and visualize our data, we incorporated several third party 
 - warnings
 - sklearn
 - seaborn
+- statsmodels
 
 ---
 
