@@ -23,3 +23,14 @@ def visualize_drivers(file_name):
     )
 
     fig.show()
+
+    fig2 = px.line(file,
+                   x = 'Year',
+                   y = 'GrossEmissions_Co2_all_gases_Mg',
+                   color = 'DriverType',
+                   title = "Gross Emissions of CO2 by Dominant Drivers",
+                   labels = {'Year':'Year', 'GrossEmissions_Co2_all_gases_Mg':'Gross Emissions of CO2 (Mg)'},
+                   markers=True
+                   )
+    
+    fig2.show()
