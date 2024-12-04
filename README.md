@@ -70,6 +70,27 @@ TreeCoverageAnalysis/
 
 ---
 
+## **Visualizations**
+
+### **Interactive Visualizations**
+The project includes several interactive visualizations to explore trends in tree loss and CO2 emissions. These visualizations are available in the **`output_data/html_primary/`** and **`output_data/html_region/`** directories. To view them:  
+1. Open the `.html` files in a web browser.  
+2. Explore the interactive plots for deeper insights.  
+
+### **Static Visualizations**
+Below are some example graphs generated during the analysis:  
+
+1. **Correlations between CO2 and Tree Loss**  
+   ![Correlations between CO2 and Tree Loss](output_data/linearity_testing.png)  
+
+2. **Predicted Value vs Error**  
+   ![Predicted Value vs Error](output_data/upperbound_error_analysis_for_correlationship.png)  
+
+3. **Prediction vs Actual CO2 Emissions by Country**  
+   ![Prediction vs Actual CO2 Emissions by Country](output_data/use_upperbound_correlationship_to_test_accuracy.png)  
+
+---
+
 ## **How to Run the Code**
 1. **Clone the Repository**:
    ```bash
