@@ -110,9 +110,9 @@ def regression_error_visualization():
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_pred, y=residuals)
     plt.axhline(0, color='red', linestyle='--')
-    plt.xlabel('Predicted Value')
-    plt.ylabel('Error Value')
-    plt.title('Predicted value vs Error Value')
+    plt.xlabel('Predicted Value (Mg)')
+    plt.ylabel('Error Difference (Mg)')
+    plt.title('Predicted value vs Error')
     plt.show()
 
 
@@ -137,9 +137,9 @@ def upperbound_regression_error_visualization():
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_pred, y=residuals)
     plt.axhline(0, color='red', linestyle='--')
-    plt.xlabel('Predicted Value')
-    plt.ylabel('Error Value')
-    plt.title('Predicted Value vs Error Value')
+    plt.xlabel('Predicted Value (Mg)')
+    plt.ylabel('Error Difference (Mg)')
+    plt.title('Predicted Value vs Error')
     # y = 0.4x
     x_line = np.linspace(y_pred.min(), y_pred.max(), 100)
     y_line = 0.45 * x_line

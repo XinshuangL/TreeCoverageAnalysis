@@ -20,7 +20,7 @@ def visualize_drivers(file_name):
         y = 'TreeCoverLoss_ha',
         color = 'DriverType',
         title = "Tree Cover Loss by Dominant Deforestation Drivers from 2001 to 2020",
-        labels = {'Year':'Year', 'TreeCoverLoss_ha':'Tree Cover Loss (ha)'},
+        labels = {'Year':'Year', 'TreeCoverLoss_ha':'Tree Cover Loss (Ha)', 'DriverType': 'Driver Type' },
         markers=True
     )
 
@@ -32,7 +32,7 @@ def visualize_drivers(file_name):
                    y = 'GrossEmissions_Co2_all_gases_Mg',
                    color = 'DriverType',
                    title = "Gross Emissions of CO2 by Dominant Drivers",
-                   labels = {'Year':'Year', 'GrossEmissions_Co2_all_gases_Mg':'Gross Emissions of CO2 (Mg)'},
+                   labels = {'Year':'Year', 'GrossEmissions_Co2_all_gases_Mg':'Gross Emissions of CO2 (Mg)', 'DriverType':'Driver Type'},
                    markers=True
                    )
     

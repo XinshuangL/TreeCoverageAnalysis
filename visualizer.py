@@ -40,7 +40,7 @@ class TreeLossVisualizer:
         else:
             raise ValueError("Invalid output_mode. Choose 'show' or 'save', and provide file_name for 'save'.")
 
-    def map_country(self, data_column, title, color_scale, output_mode='show', file_name=None):
+    def map_country(self, data_column, title, color_scale, labelm, output_mode='show', file_name=None):
         """
         Map visualization of countries by value (tree loss or emissions).
         """
@@ -52,7 +52,7 @@ class TreeLossVisualizer:
             animation_frame="Year",
             title=title,
             color_continuous_scale=color_scale,
-            labels={data_column: data_column.replace("_", " ").title()},
+            labels={data_column: labelm},
             hover_name="region"
         )
 
@@ -60,7 +60,7 @@ class TreeLossVisualizer:
 
         self.generate_figure(fig, output_mode, file_name)
 
-    def map_region(self, data_column, title, color_scale, output_mode='show', file_name=None):
+    def map_region(self, data_column, title, color_scale, labelm, output_mode='show', file_name=None):
         """
         Map visualization of regions by aggregated value (tree loss or emissions).
         """
@@ -80,7 +80,7 @@ class TreeLossVisualizer:
             animation_frame="Year",
             title=title,
             color_continuous_scale=color_scale,
-            labels={f"{data_column}_total": data_column.replace("_", " ").title()}
+            labels={f"{data_column}_total": labelm}
         )
 
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
@@ -120,7 +120,7 @@ class TreeLossVisualizer:
 
         self.generate_figure(fig, output_mode, file_name)
 
-    def top_regions(self, data_column, title, output_mode='show', file_name=None):
+    def top_regions(self, data_column, title, xtitle, output_mode='show', file_name=None):
         """
         Bar chart of regions by aggregated value (tree loss or emissions).
         """
@@ -138,7 +138,7 @@ class TreeLossVisualizer:
         )
 
         fig.update_layout(
-            xaxis_title=data_column.replace("_", " ").title(),
+            xaxis_title=xtitle,
             yaxis_title="Sub-Region",
             xaxis=dict(range = [0, 1.01*(subregion_year_loss[data_column].max())]),
             yaxis=dict(categoryorder="total ascending"),
@@ -174,7 +174,7 @@ class TreeLossVisualizer:
         )
         self.generate_figure(fig, output_mode, file_name)
 
-    def global_trend(self, data_column, title, line_color, output_mode='show', file_name=None):
+    def global_trend(self, data_column, title, line_color, ytitle, output_mode='show', file_name=None):
         """
         Line chart for global trend (tree loss or emissions).
         """
@@ -193,7 +193,7 @@ class TreeLossVisualizer:
         fig.update_layout(
             title=title,
             xaxis_title="Year",
-            yaxis_title=data_column.replace("_", " ").title(),
+            yaxis_title=ytitle,
             showlegend=False
         )
         self.generate_figure(fig, output_mode, file_name)
