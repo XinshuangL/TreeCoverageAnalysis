@@ -44,25 +44,25 @@ def scatter_plot_for_correlation_analysis():
     # scatter with regression line
     plt.subplot(1, 3, 1)
     sns.regplot(x='TreeCoverLoss_ha', y='GrossEmissions_Co2_all_gases_Mg', data=df, scatter_kws={'alpha': 0.7})
-    plt.title('TreeLoss vs CO2: scatter with regression line')
-    plt.xlabel('TreeLoss/ha')
-    plt.ylabel('CO2/Mg')
+    plt.title('TreeLoss vs CO2: Scatter Plot with Regression Line')
+    plt.xlabel('TreeLoss (ha)')
+    plt.ylabel('CO2 (Mg)')
     plt.grid(True)
     # scatter with data cleaning
     plt.subplot(1, 3, 2)
     small = df[df['TreeCoverLoss_ha'] < 0.1 * 1e6]
     sns.regplot(x='TreeCoverLoss_ha', y='GrossEmissions_Co2_all_gases_Mg', data=small, scatter_kws={'alpha': 0.7})
-    plt.title('TreeLoss vs CO2: scatter with data cleaning')
-    plt.xlabel('TreeLoss/ha')
-    plt.ylabel('CO2/Mg')
+    plt.title('TreeLoss vs CO2: Scatter Plot with Data Cleaning')
+    plt.xlabel('TreeLoss (ha)')
+    plt.ylabel('CO2 (Mg)')
     plt.grid(True)
     # scatter with data cleaning and outliners eliminating
     plt.subplot(1, 3, 3)
     small = df[df['TreeCoverLoss_ha'] < 0.1 * 1e5]
     sns.regplot(x='TreeCoverLoss_ha', y='GrossEmissions_Co2_all_gases_Mg', data=small, scatter_kws={'alpha': 0.7})
-    plt.title('TreeLoss vs CO2: scatter with data cleaning and outliners eliminating')
-    plt.xlabel('TreeLoss/ha')
-    plt.ylabel('CO2/Mg')
+    plt.title('TreeLoss vs CO2: Scatter Plot with Data Cleaning and Outliers Elimination')
+    plt.xlabel('TreeLoss (ha)')
+    plt.ylabel('CO2 (Mg)')
     plt.grid(True)
 
     plt.show()
@@ -86,7 +86,7 @@ def OLS_function_for_correlation_analysis():
         if param != 'const':
             equation += f" + ({value:.2f}) * {param}"
 
-    print("\nOrdinary least squares regression line (OLS) function:")
+    print("\nOrdinary Least Squares Regression Line (OLS) Function:")
     print(equation)
 
 def regression_error_visualization():
@@ -110,9 +110,9 @@ def regression_error_visualization():
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_pred, y=residuals)
     plt.axhline(0, color='red', linestyle='--')
-    plt.xlabel('predict value')
-    plt.ylabel('error value')
-    plt.title('predict value vs error value')
+    plt.xlabel('Predicted Value')
+    plt.ylabel('Error Value')
+    plt.title('Predicted value vs Error Value')
     plt.show()
 
 
@@ -137,9 +137,9 @@ def upperbound_regression_error_visualization():
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x=y_pred, y=residuals)
     plt.axhline(0, color='red', linestyle='--')
-    plt.xlabel('predict value')
-    plt.ylabel('error value')
-    plt.title('predict value vs error value')
+    plt.xlabel('Predicted Value')
+    plt.ylabel('Error Value')
+    plt.title('Predicted Value vs Error Value')
     # y = 0.4x
     x_line = np.linspace(y_pred.min(), y_pred.max(), 100)
     y_line = 0.45 * x_line
