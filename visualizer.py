@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 class TreeLossVisualizer:
     def __init__(self, tree_loss_file, country_code_file='input_data/country_code_info.csv'):
         """
@@ -198,6 +199,73 @@ class TreeLossVisualizer:
         )
         self.generate_figure(fig, output_mode, file_name)
 
+
+def visualize_drivers(file_name):
+    """
+    This function takes in a .csv file of the dominant drivers of deforestation
+    and then plots them compared to their tree cover loss and CO2 emission figures using plotly.
+    """
+    #check to see if a valid .csv file was input
+    assert isinstance(file_name,str)
+    assert len(file_name) >= 5
+    assert file_name[-4:] == ".csv"
+
+    # read the .csv file using pandas data frame.
+    file = pd.read_csv(file_name)
+
+    # create a line graph with each main driver with year vs tree loss in hectares
+    fig = px.line(file,
+        x = 'Year',
+        y = 'TreeCoverLoss_ha',
+        color = 'DriverType',
+        title = "Tree Cover Loss by Dominant Deforestation Drivers from 2001 to 2020",
+        labels = {'Year':'Year', 'TreeCoverLoss_ha':'Tree Cover Loss (Ha)', 'DriverType': 'Driver Type' },
+        markers=True
+    )
+
+    fig.show()
+
+    # create a line graph with each main driver with year vs CO2 emissions in Mega grams
+    fig2 = px.line(file,
+                   x = 'Year',
+                   y = 'GrossEmissions_Co2_all_gases_Mg',
+                   color = 'DriverType',
+                   title = "Gross Emissions of CO2 by Dominant Drivers",
+                   labels = {'Year':'Year', 'GrossEmissions_Co2_all_gases_Mg':'Gross Emissions of CO2 (Mg)', 'DriverType':'Driver Type'},
+                   markers=True
+                   )
+    
+    fig2.show()
+
+
+def visualize_predictions():
+    """
+    This function takes in the predicted tree loss from the `prediction_InPrimaryForest.csv' file and then combines it with the
+    `TreeCoverLoss_2001-2020_inPrimaryForest.csv` to show the tree loss in the past in addition to our predicted tree loss.
+    """
+
+    given = pd.read_csv('input_data/TreeCoverLoss_2001-2020_ByRegion.csv')
+    predict = pd.read_csv('output_data/prediction_ByRegion.csv')
+
+    gsum = given.groupby('Year')['TreeCoverLoss_ha'].sum().reset_index()
+    psum = predict.groupby('Year')['TreeCoverLoss_ha'].sum().reset_index()
+
+    gsum['Origin'] = 'Recorded'
+    psum['Origin'] = 'Predicted'
+
+    all_data = pd.concat([gsum,psum])
+
+    fig = px.line(all_data,
+                  x='Year',
+                  y= 'TreeCoverLoss_ha',
+                  color = 'Origin',
+                  title = 'Global Tree Loss with Predicted Loss from 2020-2030',
+                  labels = {'TreeCoverLoss_ha': 'Tree Loss (Ha)', 'Year': 'Year'},
+                  markers = True)
+    
+    fig.show()
+
+
 if __name__ == "__main__":
     # Tree Loss visualization by region
     visualizer = TreeLossVisualizer('./output_data/past_and_future_ByRegion.csv')
@@ -217,22 +285,3 @@ if __name__ == "__main__":
     visualizer.top_regions("GrossEmissions_Co2_all_gases_Mg", "Gross Emissions by Sub-Region", output_mode="save", file_name="output_data/html_region/emissions_top_regions.html")
     visualizer.country_trend("USA", "GrossEmissions_Co2_all_gases_Mg", "Gross Emissions for USA by Year", "orange", output_mode="save", file_name="output_data/html_region/emissions_country_trend.html")
     visualizer.global_trend("GrossEmissions_Co2_all_gases_Mg", "Total Gross Emissions Worldwide by Year", "purple", output_mode="save", file_name="output_data/html_region/emissions_global_trend.html")
-
-    # # Tree Loss visualization by primary forest
-    # visualizer = TreeLossVisualizer('./output_data/past_and_future_InPrimaryForest.csv')
-
-    # # Tree Loss saving
-    # visualizer.map_country("TreeCoverLoss_ha", "Global Tree Cover Loss by Country", "Reds", output_mode="save", file_name="output_data/html_primary/tree_loss_map_country.html")
-    # visualizer.map_region("TreeCoverLoss_ha", "Global Tree Cover Loss by Sub-Region", "Reds", output_mode="save", file_name="output_data/html_primary/tree_loss_map_region.html")
-    # visualizer.top_countries("TreeCoverLoss_ha", "Top 10 Countries by Tree Cover Loss", output_mode="save", file_name="output_data/html_primary/tree_loss_top_countries.html")
-    # visualizer.top_regions("TreeCoverLoss_ha", "Tree Cover Loss by Sub-Region", output_mode="save", file_name="output_data/html_primary/tree_loss_top_regions.html")
-    # visualizer.country_trend("USA", "TreeCoverLoss_ha", "Tree Cover Loss for USA by Year", "blue", output_mode="save", file_name="output_data/html_primary/tree_loss_country_trend.html")
-    # visualizer.global_trend("TreeCoverLoss_ha", "Total Tree Cover Loss Worldwide by Year", "green", output_mode="save", file_name="output_data/html_primary/tree_loss_global_trend.html")
-
-    # # Gross Emissions saving
-    # visualizer.map_country("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Country", "Blues", output_mode="save", file_name="output_data/html_primary/emissions_map_country.html")
-    # visualizer.map_region("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Sub-Region", "Blues", output_mode="save", file_name="output_data/html_primary/emissions_map_region.html")
-    # visualizer.top_countries("GrossEmissions_Co2_all_gases_Mg", "Top 10 Countries by Gross Emissions", output_mode="save", file_name="output_data/html_primary/emissions_top_countries.html")
-    # visualizer.top_regions("GrossEmissions_Co2_all_gases_Mg", "Gross Emissions by Sub-Region", output_mode="save", file_name="output_data/html_primary/emissions_top_regions.html")
-    # visualizer.country_trend("USA", "GrossEmissions_Co2_all_gases_Mg", "Gross Emissions for USA by Year", "orange", output_mode="save", file_name="output_data/html_primary/emissions_country_trend.html")
-    # visualizer.global_trend("GrossEmissions_Co2_all_gases_Mg", "Total Gross Emissions Worldwide by Year", "purple", output_mode="save", file_name="output_data/html_primary/emissions_global_trend.html")

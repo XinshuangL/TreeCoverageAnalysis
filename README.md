@@ -35,16 +35,20 @@ TreeCoverageAnalysis/
 │
 ├── input_data/                         # Contains raw data files.
 │   ├── country_code_info.csv           # Dataset with country codes.
-│   ├── TreeCoverLoss_2001-2020_InPrimaryForest.csv  # Primary forest dataset.
-│   ├── TreeCoverLoss_2001-2020_ByRegion.csv         # Main dataset by region.
-│   └── TreeCoverLoss_2001-2020_DominantDrivers.csv  # Dataset on dominant drivers.
+│   ├── TreeCoverLoss_2001-2020 _InPrimaryForest.csv  # Primary forest dataset.
+│   ├── TreeCoverLoss_2001-2020_ByRegion.csv          # Main dataset by region.
+│   └── TreeCoverLoss_2001-2020_DominantDrivers.csv   # Dataset on dominant drivers.
 │
-├── output_data/                        # Contains prediction results and visualizations.
-│   ├── html/                           # Interactive visualizations for tree cover loss and CO2.
-│   ├── prediction_ByRegion.csv         # Predictions based on the main dataset.
-│   └── prediction_InPrimaryForest.csv  # Predictions based on the primary forest dataset.
+├── output_data/                                # Contains prediction results and visualizations.
+│   ├── html_primary/                           # Interactive visualizations for tree cover loss and CO2.
+│   ├── html_region/                            # Interactive visualizations for tree cover loss and CO2.
+│   ├── past_and_future_ByRegion.csv            # Combined past data and prediction based on the main dataset.
+│   ├── past_and_future_InPrimaryForest.csv     # Combined past data and prediction based on the primary forest dataset.
+│   ├── prediction_ByRegion.csv                 # Predictions based on the main dataset.
+│   ├── prediction_InPrimaryForest.csv          # Predictions based on the primary forest dataset.
+│   └── *.png                                   # Visualization output.
 │
-├── Statistics/                         # Exploratory data analysis and statistics.
+├── Statistics/                                 # Exploratory data analysis and statistics.
 │   ├── Basic Statistics Countries.json         # Country-level statistics on tree cover loss and CO2.
 │   ├── Basic Statistics Drivers.json           # Driver-level statistics on tree cover loss and CO2.
 │   ├── Distribution_of_Records_Per_Country.png # Record counts by country.
@@ -52,11 +56,14 @@ TreeCoverageAnalysis/
 │   ├── Distribution_of_Records_Per_Year_Countries.png # Yearly record counts by country.
 │   └── Distribution_of_Records_Per_Year_Drivers.png   # Yearly record counts by driver type.
 │
+├── correlation_analysis.py           # Correlation between tree cover loss and CO2.
 ├── dataset.py                        # Dataset class definition for loading and preprocessing data.
-├── Gaussian_process_regression.ipynb # Jupyter notebook for prediction modeling using Gaussian process regression.
+├── Gaussian_process_regression.py    # Jupyter notebook for prediction modeling using Gaussian process regression.
 ├── main.py                           # Main script to run the project pipeline.
+├── prediction_accuracy_test.py       # Validate the accuracy of the predicted tree cover loss.
 ├── prediction_baselines_statistical_methods.py # Script for baseline prediction models.
 ├── README.md                         # Documentation for the project.
+├── requirements.txt                  # Required modules for the project.
 ├── visualization.ipynb               # Jupyter notebook for generating visualizations.
 └── visualizer.py                     # Python script for visualization tasks.
 ```
