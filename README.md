@@ -128,6 +128,10 @@ In order to predict and visualize our data, we incorporated several third party 
 ---
 
 ## **Final Presentation**
+Our project findings and insights are compiled in a presentation available here:
+
+[ECE143_Group_9_Final_Presentation.pdf](https://docs.google.com/presentation/d/1qYn_WN-LpJIszPvLomJdqw3qk8KqCV9Ftj36vBX77S0/edit#slide=id.g31bf258b86b_1_41)
+![Group 9_Tree_Loss_Analysis_ECE_143_Presentation_Cover](output_data/Group_9_Tree_Loss_Analysis_ECE_143_Presentation_Cover.png)
 
 ---
 
