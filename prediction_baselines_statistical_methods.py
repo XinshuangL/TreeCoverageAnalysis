@@ -26,11 +26,31 @@ warnings.filterwarnings("ignore")
 
 
 def eval_prediction(y_pred, y_test):
+    """
+    Compute MSE between predictions and gt
+
+    :param y_pred: predicted values
+    :param y_test: gt values
+    :return: MSE score
+    """
+    assert len(y_pred) == len(y_test)
+
     mse = np.mean((y_pred - np.array(y_test)) ** 2)
     return mse
 
 
 def eval_gp_model(dataset, mode, model, params):
+    """
+    Evaluate the GPR model
+
+    :param dataset: dataset
+    :param mode: "tree_loss" or "co2" 
+    :param model: model
+    :param params: some other settings
+    :return: RMSE
+    """
+    assert mode in ["tree_loss", "co2"]
+
     target_pos = 1 if mode == "tree_loss" else 2
     mse_list = []
     for train_data, test_data, _ in dataset:
@@ -50,12 +70,32 @@ def eval_gp_model(dataset, mode, model, params):
 # Baseline Method 1: Global Mean
 ############################################################################
 def baseline1(x_train, y_train, x_test, params):
+    """
+    Baseline method #1
+
+    :param x_train: trian input
+    :param y_train: train target
+    :param x_test: gt
+    :param params: some other settings
+    :return: predictions
+    """
+    assert len(x_train) == len(y_train)
+
     global_mean = params["global_mean"]
     y_pred = np.zeros_like(x_test) + global_mean
     return y_pred
 
 
 def get_target_mean(dataset, pos):
+    """
+    Gets the mean values
+
+    :param dataset: dataset
+    :param pos: position
+    :return: mean
+    """
+    assert pos >= 0
+
     sum_value = 0
     count_value = 0
     for train_data, test_data, _ in dataset:
@@ -68,6 +108,9 @@ def get_target_mean(dataset, pos):
 
 
 def test_baseline1():
+    """
+    Test the baseline method #1
+    """
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020_ByRegion.csv", split_train_test=True
     )
@@ -97,12 +140,26 @@ def test_baseline1():
 # Baseline Method 2: Local Mean
 ############################################################################
 def baseline2(x_train, y_train, x_test, params):
+    """
+    Baseline method #2
+
+    :param x_train: trian input
+    :param y_train: train target
+    :param x_test: gt
+    :param params: some other settings
+    :return: predictions
+    """
+    assert len(x_train) == len(y_train)
+
     local_mean = y_train.mean()
     y_pred = np.zeros_like(x_test) + float(local_mean)
     return y_pred
 
 
 def test_baseline2():
+    """
+    Test the baseline method #2
+    """
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020_ByRegion.csv", split_train_test=True
     )
@@ -126,12 +183,26 @@ def test_baseline2():
 # Baseline Method 3: Latest
 ############################################################################
 def baseline3(x_train, y_train, x_test, params):
+    """
+    Baseline method #3
+
+    :param x_train: trian input
+    :param y_train: train target
+    :param x_test: gt
+    :param params: some other settings
+    :return: predictions
+    """
+    assert len(x_train) == len(y_train)
+
     latest = y_train.view(-1)[-1]
     y_pred = np.zeros_like(x_test) + float(latest)
     return y_pred
 
 
 def test_baseline3():
+    """
+    Test the baseline method #3
+    """
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020_ByRegion.csv", split_train_test=True
     )
@@ -157,6 +228,17 @@ def test_baseline3():
 # Baseline Method 4: Mixture of Local Mean and Latest Value
 ############################################################################
 def baseline4(x_train, y_train, x_test, params):
+    """
+    Baseline method #4
+
+    :param x_train: trian input
+    :param y_train: train target
+    :param x_test: gt
+    :param params: some other settings
+    :return: predictions
+    """
+    assert len(x_train) == len(y_train)
+
     return (
         baseline2(x_train, y_train, x_test, params)
         + baseline3(x_train, y_train, x_test, params)
@@ -164,6 +246,9 @@ def baseline4(x_train, y_train, x_test, params):
 
 
 def test_baseline4():
+    """
+    Test the baseline method #4
+    """
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020_ByRegion.csv", split_train_test=True
     )

@@ -36,6 +36,9 @@ def gp_prediction(x_train, y_train, x_test):
     :param x_test: Test feature data for prediction.
     :return: Predicted values (mean) and standard deviations.
     """
+
+    assert len(x_train) == len(y_train)
+
     # Ensure inputs are 1D arrays reshaped to 2D for GPR
     x_train = np.array(x_train).reshape(-1, 1)
     y_train = np.array(y_train).reshape(-1, 1)
@@ -139,6 +142,7 @@ def predict_with_gp_models(dataset):
     :param dataset: Dataset to make predictions on.
     :return: Results containing predictions and uncertainties for each country.
     """
+    assert len(dataset) > 0
     results = {}
     for train_data, test_data, country in dataset:
         try:
