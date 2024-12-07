@@ -3,11 +3,11 @@
 ## **Team 9**
 
 ### **Authors**
-- Emma Wrightson  
-- Xinshuang Liu  
-- Haoyu Hu  
-- Mazeyu Ji  
-- Qi Cao  
+- Emma Wrightson: ewrightson@ucsd.edu  
+- Xinshuang Liu: xil235@ucsd.edu
+- Haoyu Hu: hah034@ucsd.edu     
+- Mazeyu Ji: m3ji@ucsd.edu  
+- Qi Cao: q9cao@ucsd.edu  
 
 ---
 
@@ -59,6 +59,7 @@ TreeCoverageAnalysis/
 ├── correlation_analysis.py           # Correlation between tree cover loss and CO2.
 ├── dataset.py                        # Dataset class definition for loading and preprocessing data.
 ├── Gaussian_process_regression.py    # Jupyter notebook for prediction modeling using Gaussian process regression.
+├── Group_9_Tree_Loss_Analysis_Presentation.pdf #PDF file of our final presentation
 ├── main.py                           # Main script to run the project pipeline.
 ├── prediction_accuracy_test.py       # Validate the accuracy of the predicted tree cover loss.
 ├── prediction_baselines_statistical_methods.py # Script for baseline prediction models.
@@ -112,8 +113,7 @@ Below are some example graphs generated during the analysis:
    visualization.ipynb
    ```
 ### Note:
-Running the `main.py` file will create the prediction.csv files as well as generate the predicted `.csv` files `prediction_ByRegion.csv` and `prediction_InPrimaryForest.csv` in the `output_data` file. Then, when you run the `visualization.ipynb`, the visualizations
-will then be created.
+Running the `main.py` file will create the prediction.csv files as well as generate the predicted `.csv` files `prediction_ByRegion.csv` and `prediction_InPrimaryForest.csv` in the `output_data` file, as well as provide statistical analysis on the Gaussian Regression model. Then, when you run the `visualization.ipynb`, the visualizations will then be created.
 
 ---
 
