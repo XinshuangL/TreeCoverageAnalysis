@@ -50,7 +50,9 @@ eval_gp_models()
 print("-" * 10)
 
 ############################################################################
-# Section 2: Predict the tree loss and co2 emissions
+# Section 2: Predict the tree loss and co2 emissions and then save
+# their values in the output_data file, prediction_ByRegion.csv,
+# and prediction_InPrimaryForest.csv 
 ############################################################################
 
 predict_all_values_using_gp_models()

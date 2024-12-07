@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 
 def calculate_gross_emissions(tree_cover_loss_ha):
     """
-    the known relationship between TreeLoss and CO2
+    Calculates the known relationship between TreeLoss and CO2, takes in a 
+    loss of tree loss as a float, 'tree_cover_loss_ha' and returns
+    the calculated CO2 emissions based on the calculated correlation
+    equation.
     """
     assert isinstance(tree_cover_loss_ha, float)
 
@@ -14,7 +17,9 @@ def calculate_gross_emissions(tree_cover_loss_ha):
 
 def calculate_error_bound(tree_cover_loss_ha):
     """
-    the known error upper bound between TreeLoss and CO2
+    Calculates the known error upper bound between TreeLoss and CO2, 
+    takes in a float 'tree_cover_loss_ha' and calculates the error
+    bounds by multiplying by 0.45, the calculated error bound parameter, and returns that value.
     """
     assert isinstance(tree_cover_loss_ha, float)
 
@@ -23,7 +28,11 @@ def calculate_error_bound(tree_cover_loss_ha):
 
 def validate_predictions(predicted_tree_cover_loss, actual_gross_emissions):
     """
-    validate the accuracy of the predicted tree cover loss
+    This function validates the accuracy of the predicted tree cover loss. It takes in 
+    'predicted_tree_cover_loss1, a float, and 'actual_gross_emissions', another float 
+    and then calculates the upper and lower bounds and predicts the CO2 emissions
+    based off of the tree cover loss, and then returns a boolean if the
+    actual value is within the error bounds of the predicted value.
     """
     assert isinstance(predicted_tree_cover_loss, float) and isinstance(
         actual_gross_emissions, float
