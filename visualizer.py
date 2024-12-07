@@ -243,18 +243,22 @@ def visualize_predictions():
     This function takes in the predicted tree loss from the `prediction_InPrimaryForest.csv' file and then combines it with the
     `TreeCoverLoss_2001-2020_inPrimaryForest.csv` to show the tree loss in the past in addition to our predicted tree loss.
     """
-
+    # Load the predicted and recorded data from the .csv files into dataframes
     given = pd.read_csv('input_data/TreeCoverLoss_2001-2020_ByRegion.csv')
     predict = pd.read_csv('output_data/prediction_ByRegion.csv')
 
+    # Sum up all of the tree cover loss by year
     gsum = given.groupby('Year')['TreeCoverLoss_ha'].sum().reset_index()
     psum = predict.groupby('Year')['TreeCoverLoss_ha'].sum().reset_index()
 
+    #Add another column 'Origin' to the dataframes for color coding
     gsum['Origin'] = 'Recorded'
     psum['Origin'] = 'Predicted'
 
+    #combine the dataframes
     all_data = pd.concat([gsum,psum])
 
+    #Plot the data
     fig = px.line(all_data,
                   x='Year',
                   y= 'TreeCoverLoss_ha',
@@ -271,17 +275,15 @@ if __name__ == "__main__":
     visualizer = TreeLossVisualizer('./output_data/past_and_future_ByRegion.csv')
 
     # Tree Loss saving
-    visualizer.map_country("TreeCoverLoss_ha", "Global Tree Cover Loss by Country", "Reds", output_mode="save", file_name="output_data/html_region/tree_loss_map_country.html")
-    visualizer.map_region("TreeCoverLoss_ha", "Global Tree Cover Loss by Sub-Region", "Reds", output_mode="save", file_name="output_data/html_region/tree_loss_map_region.html")
-    visualizer.top_countries("TreeCoverLoss_ha", "Top 10 Countries by Tree Cover Loss", output_mode="save", file_name="output_data/html_region/tree_loss_top_countries.html")
-    visualizer.top_regions("TreeCoverLoss_ha", "Tree Cover Loss by Sub-Region", output_mode="save", file_name="output_data/html_region/tree_loss_top_regions.html")
-    visualizer.country_trend("USA", "TreeCoverLoss_ha", "Tree Cover Loss for USA by Year", "blue", output_mode="save", file_name="output_data/html_region/tree_loss_country_trend.html")
-    visualizer.global_trend("TreeCoverLoss_ha", "Total Tree Cover Loss Worldwide by Year", "green", output_mode="save", file_name="output_data/html_region/tree_loss_global_trend.html")
+    visualizer.map_country("TreeCoverLoss_ha", "Global Tree Cover Loss by Country", "Reds","Tree Cover Loss (Ha)", output_mode="show")
+    visualizer.map_region("TreeCoverLoss_ha", "Global Tree Cover Loss by Sub-Region", "Reds","Tree Cover Loss (Ha)", output_mode="show")
+    visualizer.top_regions("TreeCoverLoss_ha", "Tree Cover Loss by Sub-Region","Tree Cover Loss (Ha)", output_mode="show")
+    visualizer.country_trend("USA", "TreeCoverLoss_ha", "Tree Cover Loss for USA by Year", "blue", output_mode="show")
+    visualizer.global_trend("TreeCoverLoss_ha", "Total Tree Cover Loss Worldwide by Year", "green","Tree Cover Loss (Ha)", output_mode="show")
 
     # Gross Emissions saving
-    visualizer.map_country("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Country", "Blues", output_mode="save", file_name="output_data/html_region/emissions_map_country.html")
-    visualizer.map_region("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Sub-Region", "Blues", output_mode="save", file_name="output_data/html_region/emissions_map_region.html")
-    visualizer.top_countries("GrossEmissions_Co2_all_gases_Mg", "Top 10 Countries by Gross Emissions", output_mode="save", file_name="output_data/html_region/emissions_top_countries.html")
-    visualizer.top_regions("GrossEmissions_Co2_all_gases_Mg", "Gross Emissions by Sub-Region", output_mode="save", file_name="output_data/html_region/emissions_top_regions.html")
-    visualizer.country_trend("USA", "GrossEmissions_Co2_all_gases_Mg", "Gross Emissions for USA by Year", "orange", output_mode="save", file_name="output_data/html_region/emissions_country_trend.html")
-    visualizer.global_trend("GrossEmissions_Co2_all_gases_Mg", "Total Gross Emissions Worldwide by Year", "purple", output_mode="save", file_name="output_data/html_region/emissions_global_trend.html")
+    visualizer.map_country("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Country", "Blues","Gross CO2 Emissions (Mg)", output_mode="show")
+    visualizer.map_region("GrossEmissions_Co2_all_gases_Mg", "Global Gross Emissions by Sub-Region", "Blues","Gross CO2 Emissions (Mg)", output_mode="show")
+    visualizer.top_regions("GrossEmissions_Co2_all_gases_Mg", "Gross Emissions by Sub-Region","Gross CO2 Emissions (Mg)", output_mode="show")
+    visualizer.country_trend("USA", "GrossEmissions_Co2_all_gases_Mg", "Gross Emissions for USA by Year", "orange", output_mode="show")
+    visualizer.global_trend("GrossEmissions_Co2_all_gases_Mg", "Total Gross Emissions Worldwide by Year", "purple","Gross CO2 Emissions (Mg)", output_mode="show")
