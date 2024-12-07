@@ -107,6 +107,13 @@ Below are some example graphs generated during the analysis:
    ```bash
    python3 main.py
    ```
+4. **Run Visuals Jupyter Notebook**:
+   ```bash
+   visualization.ipynb
+   ```
+### Note:
+Running the `main.py` file will create the prediction.csv files as well as generate the predicted `.csv` files `prediction_ByRegion.csv` and `prediction_InPrimaryForest.csv` in the `output_data` file. Then, when you run the `visualization.ipynb`, the visualizations
+will then be created.
 
 ---
 
