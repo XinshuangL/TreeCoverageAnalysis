@@ -5,10 +5,13 @@ import matplotlib.pyplot as plt
 
 def calculate_gross_emissions(tree_cover_loss_ha):
     """
-    Calculates the known relationship between TreeLoss and CO2, takes in a 
-    loss of tree loss as a float, 'tree_cover_loss_ha' and returns
-    the calculated CO2 emissions based on the calculated correlation
-    equation.
+    Calculates CO2 emissions based on the known relationship between TreeLoss and CO2 using the calculated 
+    prediction equation.
+     
+    :param tree_cover_loss_ha: float of hectares of tree cover lost
+    
+    returns:
+        float: predicted CO2 emissions
     """
     assert isinstance(tree_cover_loss_ha, float)
 
@@ -17,9 +20,13 @@ def calculate_gross_emissions(tree_cover_loss_ha):
 
 def calculate_error_bound(tree_cover_loss_ha):
     """
-    Calculates the known error upper bound between TreeLoss and CO2, 
-    takes in a float 'tree_cover_loss_ha' and calculates the error
-    bounds by multiplying by 0.45, the calculated error bound parameter, and returns that value.
+    Calculates the known error upper bound between TreeLoss and CO2 based on the known
+    margin of error, 0.45 * the predicted value.
+
+    :param tree_cover_loss_ha: Float of hactraes of tree cover lost.
+    
+    returns:
+       Float: upper bound in which an error is allowed.
     """
     assert isinstance(tree_cover_loss_ha, float)
 
@@ -28,11 +35,16 @@ def calculate_error_bound(tree_cover_loss_ha):
 
 def validate_predictions(predicted_tree_cover_loss, actual_gross_emissions):
     """
-    This function validates the accuracy of the predicted tree cover loss. It takes in 
-    'predicted_tree_cover_loss1, a float, and 'actual_gross_emissions', another float 
-    and then calculates the upper and lower bounds and predicts the CO2 emissions
-    based off of the tree cover loss, and then returns a boolean if the
-    actual value is within the error bounds of the predicted value.
+    This function validates the accuracy of the predicted tree cover loss.
+     
+    :param predicted_tree_cover_loss: Float of predicted hectares of tree cover loss
+    :param actual_gross_emissions: Float of the recorded CO2 levels
+
+    returns: 
+        Boolean: If the actual CO2 emissions are within the acceptable bounds of the predicted CO2 emissions.
+        Float: Upper bound of acceptable error
+        Float: Lower bound of acceptable error
+        Float: Predicted CO2 emissions based on tree cover loss
     """
     assert isinstance(predicted_tree_cover_loss, float) and isinstance(
         actual_gross_emissions, float
