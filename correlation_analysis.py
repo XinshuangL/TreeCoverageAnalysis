@@ -13,7 +13,11 @@ import statsmodels.api as sm
 
 def load_data(file_path='input_data/TreeCoverLoss_2001-2020 _InPrimaryForest.csv'):
     """
-    load the data for correlation analysis
+    loads the data for correlation analysis
+
+    :param file_path: A string for the desired file.
+
+    returns the dataframe with the given data
     """
     assert file_path.endswith('.csv')
     data = pd.read_csv(file_path)
@@ -23,7 +27,8 @@ def load_data(file_path='input_data/TreeCoverLoss_2001-2020 _InPrimaryForest.csv
 
 def correlation_coefficient_computing():
     """
-    compute the correlation coefficient to test the linearity between TreeLoss and CO2
+    computes the correlation coefficient to test the linearity between TreeLoss and CO2
+    and prints it out
     """
     df = load_data('input_data/TreeCoverLoss_2001-2020 _InPrimaryForest.csv')
     pearson_corr = df.corr(method='pearson')
@@ -91,7 +96,7 @@ def OLS_function_for_correlation_analysis():
 
 def regression_error_visualization():
     """
-    visualize the regression error between TreeLoss and CO2
+    visualizes the regression error between TreeLoss and CO2
     """
     df = load_data()
     small = df[df['TreeCoverLoss_ha'] < 0.1 * 1e6]
@@ -118,7 +123,7 @@ def regression_error_visualization():
 
 def upperbound_regression_error_visualization():
     """
-    visualize the upperbound of regression error between TreeLoss and CO2
+    visualizes the upperbound of regression error between TreeLoss and CO2
     """
     df = load_data()
     small = df[df['TreeCoverLoss_ha'] < 0.1 * 1e6]
