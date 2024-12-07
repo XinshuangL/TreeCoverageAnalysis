@@ -70,7 +70,7 @@ def scatter_plot_for_correlation_analysis():
 
 def OLS_function_for_correlation_analysis():
     """
-    the ordinary least squares regression line (OLS) function for correlation analysis:
+    Prints the ordinary least squares regression line (OLS) function for correlation analysis:
     TreeLoss is X, and CO2 is Y
     """
     df = load_data()
@@ -140,11 +140,11 @@ def upperbound_regression_error_visualization():
     plt.xlabel('Predicted Value (Mg)')
     plt.ylabel('Error Difference (Mg)')
     plt.title('Predicted Value vs Error')
-    # y = 0.4x
+    # y = 0.4x line
     x_line = np.linspace(y_pred.min(), y_pred.max(), 100)
     y_line = 0.45 * x_line
     plt.plot(x_line, y_line, label='y = 0.4x', color='green', linestyle='--', linewidth=2)
-    # y = -0.4x
+    # y = -0.4x line
     x_line = np.linspace(y_pred.min(), y_pred.max(), 100)
     y_line = -0.45 * x_line
     plt.plot(x_line, y_line, label='y = 0.4x', color='green', linestyle='--', linewidth=2)

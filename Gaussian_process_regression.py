@@ -203,12 +203,14 @@ def save_results(results, save_dir):
 
 def predict_all_values_using_gp_models():
     """
-    Predict all values using GP models for multiple datasets and save the results.
+    Predict all values using GP models for multiple datasets and saves the results.
     """
     dataset = TreeCoverLossDataset(
         "input_data/TreeCoverLoss_2001-2020_ByRegion.csv", split_train_test=True
     )
     results = predict_with_gp_models(dataset)
+
+    # save predicted tree loss by region in a .csv file below
     save_results(results, "output_data/prediction_ByRegion.csv")
 
     i_example = 0
@@ -227,6 +229,7 @@ def predict_all_values_using_gp_models():
     std_example = example["std"]
     years = list(range(2020, 2031))
 
+    # Create example gaussian regression prediction and save it as a .png file for one country
     plt.errorbar(years, mean_example, yerr=std_example*0.1, fmt='o', ecolor='gray')
     plt.plot(years, mean_example, linestyle='-', color='blue')
     plt.title('Uncertainty-aware Tree Cover Loss Prediction', fontsize=15)
@@ -240,4 +243,5 @@ def predict_all_values_using_gp_models():
         "input_data/TreeCoverLoss_2001-2020 _InPrimaryForest.csv", split_train_test=True
     )
     results = predict_with_gp_models(dataset)
+    # save the gaussian regression prediction by country in .csv file below.
     save_results(results, "output_data/prediction_InPrimaryForest.csv")
