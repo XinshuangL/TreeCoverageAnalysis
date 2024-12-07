@@ -11,6 +11,10 @@ class TreeLossVisualizer:
         :param tree_loss_file: Path to the tree loss CSV file.
         :param country_code_file: Path to the country code information CSV file.
         """
+
+        assert tree_loss_file.endswith('.csv')
+        assert country_code_file.endswith('.csv')
+
         # Load data
         self.tree_loss_df = pd.read_csv(tree_loss_file)
         self.country_code_info_df = pd.read_csv(country_code_file)
@@ -34,6 +38,10 @@ class TreeLossVisualizer:
         :param output_mode: Either 'show' to display or 'save' to save as HTML.
         :param file_name: The name of the HTML file if output_mode is 'save'.
         """
+
+        if file_name:
+            assert isinstance(file_name,str)
+
         if output_mode == 'show':
             fig.show()
         elif output_mode == 'save' and file_name:
@@ -44,7 +52,24 @@ class TreeLossVisualizer:
     def map_country(self, data_column, title, color_scale, labelm, output_mode='show', file_name=None):
         """
         Map visualization of countries by value (tree loss or emissions).
+
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param color_scale: String of color scale desired.
+        :param labelm: String of desired color scale label.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(color_scale,str)
+        assert isinstance(labelm,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
         fig = px.choropleth(
             self.merged_df,
             locations="CountryCode",
@@ -64,7 +89,26 @@ class TreeLossVisualizer:
     def map_region(self, data_column, title, color_scale, labelm, output_mode='show', file_name=None):
         """
         Map visualization of regions by aggregated value (tree loss or emissions).
+        
+
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param color_scale: String of color scale desired.
+        :param labelm: String of desired color scale label.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(color_scale,str)
+        assert isinstance(labelm,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
+        #Group by subregion and year for plotting on map
         subregion_year_loss = self.merged_df.groupby(['Year', 'sub-region'])[data_column].sum().reset_index()
         merged_df_with_subregion_loss = self.merged_df.merge(
             subregion_year_loss,
@@ -91,7 +135,21 @@ class TreeLossVisualizer:
     def top_countries(self, data_column, title, output_mode='show', file_name=None):
         """
         Bar chart of top 10 countries by value (tree loss or emissions).
+        
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
+        #find top 10 countries per year to put in plot
         top_10_countries_per_year = (
             self.merged_df.groupby("Year", group_keys=False)
             .apply(lambda x: x.nlargest(10, data_column))
@@ -124,7 +182,24 @@ class TreeLossVisualizer:
     def top_regions(self, data_column, title, xtitle, output_mode='show', file_name=None):
         """
         Bar chart of regions by aggregated value (tree loss or emissions).
+
+
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param xtitle: String of desired x axis title.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(xtitle,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
+
         subregion_year_loss = self.merged_df.groupby(['Year', 'sub-region'])[data_column].sum().reset_index()
         
         fig = px.bar(
@@ -154,7 +229,26 @@ class TreeLossVisualizer:
     def country_trend(self, country_code, data_column, title, line_color, output_mode='show', file_name=None):
         """
         Line chart for a specific country (tree loss or emissions).
+
+
+        :param country_code: String for specific country desired.
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param line_color: String of color desired for graph.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(country_code,str)
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(line_color,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
+
         country_data = self.merged_df[self.merged_df['CountryCode'] == country_code]
 
         fig = go.Figure(
@@ -178,7 +272,26 @@ class TreeLossVisualizer:
     def global_trend(self, data_column, title, line_color, ytitle, output_mode='show', file_name=None):
         """
         Line chart for global trend (tree loss or emissions).
+
+
+        :param data_column: String name of Data Frame column to plot.
+        :param title: String of desired title for graph.
+        :param line_color: String of color desired for graph.
+        :param ytitle: String of desired y axis title.
+        :param output_mode: String of output mode desired, automatically set to show.
+        :param file_name: String of desired file name.
         """
+
+        assert isinstance(data_column,str)
+        assert data_column == "TreeCoverLoss_ha" or data_column == "GrossEmissions_Co2_all_gases_Mg"
+        assert isinstance(title,str)
+        assert isinstance(ytitle,str)
+        assert isinstance(line_color,str)
+        assert isinstance(output_mode,str)
+        if file_name:
+            assert isinstance(file_name,str)
+
+
         total_data_per_year = self.merged_df.groupby('Year')[data_column].sum().reset_index()
 
         fig = go.Figure(
